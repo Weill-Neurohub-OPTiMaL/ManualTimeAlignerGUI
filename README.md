@@ -64,3 +64,12 @@ is questionable and should be treated with caution. These warnings are: (returne
     part of the data stream means that another part comes significantly out of alignment
   - `f`: **general warning**: Aligner was generally concerned with the quality of the alignment. Use this is you think
     that something is generically bad with the data or alignment
+    
+    
+## Citing and Authorship 
+If you use our code, please cite our Journal of Visualized Experiments [paper](https://www.jove.com/methods-collections/2119). 
+
+This repository was written by [Tomek Fraczek](https://github.com/TomekFraczek) and is overseen by [Jeffrey Herron](https://neurosurgery.uw.edu/bio/jeffrey-herron-phd). 
+
+## Funding 
+This work was supported by funding from the Weill Neurohub, the National Institutes of Health (UH3NS100544), and the National Science Foundation (DGE-2140004).  
