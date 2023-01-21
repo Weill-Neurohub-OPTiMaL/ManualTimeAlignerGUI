@@ -1,28 +1,53 @@
 import numpy as np
-import pandas as pd
-
-from common.reference import RUNE_WATCH_IDS
-from common.utils.rune import get_client, get_watch_data
 
 
-def load_data(neural_source, side, watch_id):
-    raw_ins = pd.read_csv(
-        neural_source,
-        usecols=[0, 1, 2, 3], header=0, index_col=0
-    )
-    clean_ins = raw_ins[np.logical_not(np.isnan(raw_ins['accel_x']))]
-    clean_ins.index /= 1000
+def norm_columns(df, column_names=None):
 
-    if 'left' in side or 'right' in side:
-        watch_id = watch_id  # Made this a param for now, Todo: update common.reference
-    else:
-        raise KeyError('Unexpected neural source file! Could not parse side!')
-    watch_params = {
-        'patient_id': 'rcs07',  # Todo: make patient_id a param/config value for future patients
-        'device_id': watch_id,
-        'start_time': clean_ins.index[0],
-        'end_time': clean_ins.index[-1]
-    }
-    watch_data = get_watch_data(get_client(), watch_params, 'accel').set_index('timestamp')
+    if column_names is None:
+        column_names = col_names(df, exclude='time')
 
-    return watch_data, clean_ins
+    squared = np.array([df[col]**2 for col in column_names]).T
+    return np.sqrt(np.sum(squared, axis=1))
+
+
+def timestamp_to_elapsed(timestamps, start=None):
+    """Convert from pandas timestamps to time, in seconds, since the start of the recording"""
+    start = start if start is not None else timestamps[0]
+    return [t.total_seconds() for t in timestamps - start]
+
+
+def col_names(df, exclude=None, include=None):
+    """
+    Extract the desired column names from a dataframe
+
+    :param df:
+    :param exclude: string. If this is included in the column name, that column is excluded
+    :param include: string. If this is included in the column name, the column is included
+    :return:
+    """
+
+    names = df.columns
+
+    if include is not None:
+        # Only include columns that include the include string in their names
+        reduced_names = []
+        for c in df.columns:
+            try:
+                if exclude in c:
+                    reduced_names.append(c)
+            except TypeError:
+                pass
+        names = reduced_names
+
+    if exclude is not None:
+        # Only include columns that do not include the exclude string in their names
+        reduced_names = []
+        for c in df.columns:
+            try:
+                if exclude not in c:
+                    reduced_names.append(c)
+            except TypeError:
+                reduced_names.append(c)
+        names = reduced_names
+
+    return names

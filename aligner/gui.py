@@ -4,12 +4,10 @@ import traceback
 import tkinter as tk
 import numpy as np
 import pandas as pd
-from scipy.signal import decimate
 from matplotlib import pyplot as plt
-from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
-from common.utils.slicing import norm_columns
-from common.utils.time import timestamp_to_elapsed
+from utils import norm_columns
+from utils import timestamp_to_elapsed
 
 
 def manual_align(true_time_data, scale=None, **data_to_align):
