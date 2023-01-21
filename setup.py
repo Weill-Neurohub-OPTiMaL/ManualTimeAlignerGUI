@@ -17,5 +17,5 @@ setup(
     },
     license_files='LICENSE',
     packages=find_packages(),
-    install_requires=['numpy', 'pandas', 'scipy', 'matplotlib', 'gitpython', 'runeq'],
+    install_requires=['numpy', 'pandas', 'matplotlib', 'gitpython'],
 )
