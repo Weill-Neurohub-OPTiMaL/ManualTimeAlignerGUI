@@ -1,0 +1,10 @@
+README.md
+setup.py
+aligner/__init__.py
+aligner/gui.py
+aligner/utils.py
+aligner.egg-info/PKG-INFO
+aligner.egg-info/SOURCES.txt
+aligner.egg-info/dependency_links.txt
+aligner.egg-info/requires.txt
+aligner.egg-info/top_level.txt
