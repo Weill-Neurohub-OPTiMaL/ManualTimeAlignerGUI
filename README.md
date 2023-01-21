@@ -1,6 +1,5 @@
 # Manual Time AlignerGUI
-
-Collection of functions used by multiple data net systems
+We collected multi-modal time series data where a gesture task was performed by a research subject at the onset of recordings. This gesture creates an artifact in all data streams, which can be used to visually align data collected from multiple devices to a common time. Use this simple GUI to fascilitate time-alignment quickly. 
 
 ## Install/Setup
 The best way to install this code depends on your use case. 
@@ -11,14 +10,14 @@ the repo. Setup a python interpreter and install requirements with.
 ```bash
 pip install -r requirements.txt
 ```
-Point the `main.py` script at your source data and you should be good to go.
+Point the `example.py` script at your source data and you should be good to go.
 
 #### Package Form
 If you want to incorporate this code to perform time alignment in your own projects, the best way to install is as 
 a python package using pip. Simply add the following line to your 
 `requirements.txt` file:
 ```bash
-aligner @ git+https://https://github.com/Weill-Neurohub-OPTiMaL/ManualTimeAlignGUI.git@main
+aligner @ git+https://https://github.com/Weill-Neurohub-OPTiMaL/ManualTimeAlignerGUI.git@main
 ```
 And the run `pip install -r requirements.txt`.
 Any updates to the code will be pulled whenever you re-run the above or run `pip install --upgrade common`
