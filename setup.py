@@ -8,7 +8,7 @@ setup(
     version='2.1',
     author='Tomek Fraczek',
     author_email='tfraczek@uw.edu',
-    description='Manual Time Alignment for Accelerometry and Pose Data',
+    description='Manual Time Alignment of accelerometer data',
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/Weill-Neurohub-OPTiMaL/ManualTimeAlignerGUI',
