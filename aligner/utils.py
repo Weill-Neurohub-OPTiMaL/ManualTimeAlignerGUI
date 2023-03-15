@@ -1,13 +1,37 @@
 import numpy as np
+import pandas as pd
 
 
-def norm_columns(df, column_names=None):
+def load_csv(file_path, time_scale_to_seconds=1.0):
+    raw_ins = pd.read_csv(
+        file_path, header=0, index_col=0
+    )
+    raw_ins.index = pd.to_datetime(raw_ins.index / time_scale_to_seconds, unit='s')
+    return raw_ins
+
+
+def norm_df(df, column_names=None):
+    """
+    Convenience function to collapse multidimensional data into a single normed dimension
+
+    If you have data from a 3-axis accelerometer, visualizing just on axis might miss information important for time
+    alignment, and plotting all three axes at once gets confusing very quickly. Therefore, we can take the L2
+    norm of all three axes to get one axis that conveys the 'magnitude' of acceleration at all timepoints
+
+    :param df: long-form dataframe with data to normalize. Each column is a separate axis/dimension of the data
+    :param column_names: The names of columns, as a list, to include in the L2 norm. by default will pull all columns
+        except those including the word 'time'
+
+    :return: DataFrame with the same index as the original dataframe but with only one data column, named 'values'
+    which contains the L2 normed data.
+    """
 
     if column_names is None:
         column_names = col_names(df, exclude='time')
 
     squared = np.array([df[col]**2 for col in column_names]).T
-    return np.sqrt(np.sum(squared, axis=1))
+    normed = np.sqrt(np.sum(squared, axis=1))
+    return pd.DataFrame(normed, index=df.index)
 
 
 def timestamp_to_elapsed(timestamps, start=None):
